@@ -3,6 +3,8 @@ package com.pingr.Accounts.Accounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
     private final AccountRepository repo;
@@ -36,6 +38,18 @@ public class AccountService {
             return acc;
         } catch(Exception e) {
             throw new IllegalArgumentException("Account update violates restrictions" + "[account: " + account + "]");
+        }
+    }
+
+    public Account deleteAccount(Long id) throws IllegalArgumentException {
+        try {
+            Optional<Account> acc = this.repo.findById(id);
+            this.repo.deleteById(id);
+            
+            this.producer.emitAccountDeletedEvent(acc.get());
+            return acc.get();
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Account removal violates restrictions" + "[account: " + id + "]");
         }
     }
 }
