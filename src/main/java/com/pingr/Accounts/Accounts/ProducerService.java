@@ -35,12 +35,12 @@ public class ProducerService {
     public void emitAccountUpdatedEvent(Account account) {
         this.template.send(
                 this.accountUpdatedTopic,
-                AccountCreatedEvent.of(account));
+                AccountUpdatedEvent.of(account));
     }
 
     public void emitAccountDeletedEvent(Account account) {
         this.template.send(
                 this.accountDeletedTopic,
-                AccountCreatedEvent.of(account));
+                AccountDeletedEvent.of(account));
     }
 }
