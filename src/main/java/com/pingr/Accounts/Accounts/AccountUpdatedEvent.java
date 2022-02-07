@@ -31,7 +31,7 @@ public class AccountUpdatedEvent {
         accountMapView.put("email", account.getEmail());
 
         return new AccountUpdatedEvent(
-                "AccountCreatedEvent",
+                "AccountUpdatedEvent",
                 account.getId(),
                 accountMapView
         );
