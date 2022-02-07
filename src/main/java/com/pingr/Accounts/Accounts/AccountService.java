@@ -28,4 +28,14 @@ public class AccountService {
             throw new IllegalArgumentException("Account creation violates restrictions" + "[account: " + account + "]");
         }
     }
+
+    public Account updateAccount(Long id, Account account) throws IllegalArgumentException {
+        try {
+            Account acc = this.repo.save(new Account(id, account.getUsername(), account.getEmail(), account.getPassword()));
+            this.producer.emitAccountUpdatedEvent(acc);
+            return acc;
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Account update violates restrictions" + "[account: " + account + "]");
+        }
+    }
 }
