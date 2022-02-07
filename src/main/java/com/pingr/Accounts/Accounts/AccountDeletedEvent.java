@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @JsonSerialize
-public class AccountCreatedEvent {
+public class AccountDeletedEvent {
     @JsonProperty
     private final String eventType;
 
@@ -17,21 +17,21 @@ public class AccountCreatedEvent {
     @JsonProperty
     private final Map<String, Object> payload;
 
-    private AccountCreatedEvent(String eventType, Long accountId, Map<String, Object> payload) {
+    private AccountDeletedEvent(String eventType, Long accountId, Map<String, Object> payload) {
         this.eventType = eventType;
         this.accountId = accountId;
         this.payload = payload;
     }
 
-    public static AccountCreatedEvent of(Account account) {
+    public static AccountDeletedEvent of(Account account) {
         Map<String, Object> accountMapView = new HashMap<>();
 
         accountMapView.put("id", account.getId());
         accountMapView.put("username", account.getUsername());
         accountMapView.put("email", account.getEmail());
 
-        return new AccountCreatedEvent(
-                "AccountCreatedEvent",
+        return new AccountDeletedEvent(
+                "AccountDeletedEvent",
                 account.getId(),
                 accountMapView
         );
