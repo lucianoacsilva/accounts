@@ -29,4 +29,12 @@ public class AccountController {
 
         return this.service.updateAccount(id, account);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account deleteOneAccount(@PathVariable Long id) {
+        System.out.println("Success");
+
+        return this.service.deleteAccount(id);
+    }
 }
